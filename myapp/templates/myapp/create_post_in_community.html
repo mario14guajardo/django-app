@@ -1,0 +1,15 @@
+{% extends "myapp/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Create a Post in {{ community.name }}</h2>
+    <hr>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Submit Post</button>
+        <a href="{% url 'community_detail' community.name %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

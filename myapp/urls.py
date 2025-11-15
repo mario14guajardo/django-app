@@ -1,23 +1,64 @@
-"""
-URL configuration for myapp project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-
-from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
+from .views import (
+    home,
+    login_view,
+    logout_view,
+    signup_view,
+    edit_profile,
+    user_profile,
+    contact,
+    school_map,
+    badges,
+    community_detail,
+    create_post_in_community,
+    create_post,
+    post_detail,
+    toggle_upvote,
+    submit_event,
+    submit_event_success,
+    search,
+    feed,
+)
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('', home, name='home'),
+    path('contact/', contact, name='contact'),
+    path('map/', school_map, name='school_map'),
+    path('badges/', badges, name='badges'),
+
+    # Auth
+    path('signup/', signup_view, name='signup'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
+
+    # Community
+    path('c/<str:name>/', community_detail, name='community_detail'),
+    path('c/<str:name>/create/', create_post_in_community, name='create_post_in_community'),
+
+    # Posts
+    path('create/', create_post, name='create_post'),
+    path('post/<int:post_id>/', post_detail, name='post_detail'),
+    path('post/<int:post_id>/toggle-upvote/', toggle_upvote, name='toggle_upvote'),
+
+    # Profile
+    path('profile/', user_profile, name='profile'),
+    path('profile/edit/', edit_profile, name='edit_profile'),
+    path('profile/<str:username>/', user_profile, name='user_profile'),
+
+    # Events
+    path('events/submit/', submit_event, name='submit_event'),
+    path('events/success/', submit_event_success, name='submit_event_success'),
+
+    # Search
+    path('search/', search, name='search'),
+
+    # Feed
+    path("feed/", feed, name="feed"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

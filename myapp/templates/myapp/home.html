@@ -1,0 +1,63 @@
+{% extends "myapp/base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        {% for post in posts %}
+        <div class="post-card mb-3 shadow-sm">
+
+            <!-- Upvote Column -->
+            <div class="vote-box">
+                <a href="{% url 'toggle_upvote' post.id %}">
+                    <i class="bi bi-arrow-up-circle"></i>
+                </a>
+                <div class="score">{{ post.upvotes.count }}</div>
+                <i class="bi bi-arrow-down-circle"></i>
+            </div>
+
+            <!-- Post Content -->
+            <div>
+                <a href="{% url 'post_detail' post.id %}" class="fw-bold text-decoration-none text-dark">
+                    {{ post.title }}
+                </a>
+                <div class="text-muted small">
+                    Posted by {{ post.author }} • {{ post.created_at|timesince }} ago
+                </div>
+
+                <p class="mt-2">{{ post.body|truncatechars:200 }}</p>
+
+                <a href="{% url 'post_detail' post.id %}" class="text-decoration-none fw-semibold">
+                    {{ post.comments.count }} comments
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="col-md-4">
+
+        <div class="sidebar-card">
+            <h5 class="fw-bold">Announcements</h5>
+            {% for ann in announcements %}
+                <p>• {{ ann.text }}</p>
+            {% endfor %}
+        </div>
+
+        <div class="sidebar-card">
+            <h5 class="fw-bold">Upcoming Events</h5>
+            {% for event in events %}
+                <p>{{ event.title }} — {{ event.date }}</p>
+            {% endfor %}
+        </div>
+
+        <div class="sidebar-card">
+            <h5 class="fw-bold">Your Badges</h5>
+            <p>⭐ Helpful Student</p>
+            <p>🔥 Active Contributor</p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
