@@ -1,0 +1,36 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Edit Profile</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label>Username</label>
+            <input type="text" class="form-control" name="username"
+                   value="{{ request.user.username }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Email</label>
+            <input type="email" class="form-control" name="email"
+                   value="{{ request.user.email }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label>Profile Picture</label>
+            <input type="file" class="form-control" name="avatar">
+        </div>
+
+        {% if request.user.profile.avatar %}
+        <div class="mb-3">
+            <img src="{{ request.user.profile.avatar.url }}"
+                 width="120" height="120" class="rounded">
+        </div>
+        {% endif %}
+
+        <button class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

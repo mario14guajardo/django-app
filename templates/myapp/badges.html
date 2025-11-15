@@ -1,0 +1,30 @@
+{% extends "myapp/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Badges</h2>
+    <hr>
+    
+    {% if badges %}
+        <div class="row">
+            {% for badge in badges %}
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center h-100">
+                        {% if badge.image %}
+                            <img src="{{ badge.image.url }}" class="card-img-top p-3" style="height:150px; object-fit:contain;" alt="{{ badge.name }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/150" class="card-img-top p-3" alt="No image">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ badge.name }}</h5>
+                            <p class="card-text">{{ badge.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No badges available yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

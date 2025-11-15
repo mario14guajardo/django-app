@@ -1,0 +1,30 @@
+<div class="mt-4">
+    <h4 class="fw-bold mb-3">Comments</h4>
+
+    {% if comments %}
+        {% for comment in comments %}
+            <div class="card p-3 mb-2 shadow-sm">
+                <strong>
+                    <a href="{% url 'user_profile' comment.author.username %}"
+                       class="text-decoration-none text-primary">
+                        {{ comment.author.username }}
+                    </a>
+                </strong>
+                <p class="mb-1">{{ comment.content }}</p>
+                <small class="text-muted">{{ comment.created_at|date:"M d, Y h:i A" }}</small>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-muted">No comments yet.</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <form method="POST" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary btn-sm">Comment</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'login' %}">Log in</a> to comment.</p>
+    {% endif %}
+</div>
