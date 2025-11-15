@@ -3,3 +3,4 @@ Django==5.2.7
 sqlparse==0.5.3
 gunicorn
 psycop2-binary
+dj-database-url
