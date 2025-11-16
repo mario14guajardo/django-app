@@ -58,6 +58,8 @@ urlpatterns = [
 
     # Feed
     path("feed/", feed, name="feed"),
+
+    path("accounts/login/", RedirectView.as_view(url="/login/", permanent=True)),
 ]
 
 if settings.DEBUG:
