@@ -4,11 +4,6 @@ import dj_database_url
 from django.contrib.auth import REDIRECT_FIELD_NAME
 
 
-
-LOGIN_URL = "/login/"
-LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/"
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
@@ -37,6 +32,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "myapp.apps.MyappConfig",
 ]
+
+LOGIN_URL = "/login/"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
