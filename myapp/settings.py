@@ -122,6 +122,6 @@ LOGGING = {
     },
     "root": {
         "handlers": ["console"],
-        "level": "ERROR",
+        "level": "DEBUG",
     },
 }
