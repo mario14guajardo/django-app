@@ -1,5 +1,6 @@
 from django.urls import path
 from django.conf import settings
+from django.views.generic.base import RedirectView
 from django.conf.urls.static import static
 from .views import (
     home,
@@ -21,8 +22,6 @@ from .views import (
     search,
     feed,
 )
-from django.conf import settings
-from django.conf.urls.static import static
 
 urlpatterns = [
     path('', home, name='home'),
@@ -32,8 +31,11 @@ urlpatterns = [
 
     # Auth
     path('signup/', signup_view, name='signup'),
-    path('accounts/login/', RedirectView.as_view(url='/login/', permanent=True),
+    path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
+
+    # Redirect old /accounts/login/ to /login/
+    path('accounts/login/', RedirectView.as_view(url='/login/', permanent=True)),
 
     # Community
     path('c/<str:name>/', community_detail, name='community_detail'),
@@ -57,9 +59,9 @@ urlpatterns = [
     path('search/', search, name='search'),
 
     # Feed
-    path("feed/", feed, name="feed"),
-
+    path('feed/', feed, name='feed'),
 ]
 
+# Serve media files in debug mode
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
