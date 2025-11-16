@@ -7,7 +7,7 @@ from .models import Community, Post, Event, Badge, Profile, Comment
 from .forms import PostForm, CommentForm, ProfileForm, EventForm, RegisterForm
 
 # ---------------------- BASIC PAGES ----------------------
-@login_required
+
 def home(request):
     posts = Post.objects.all().order_by('-created_at')
     return render(request, 'myapp/home.html', {'posts': posts})
@@ -74,7 +74,7 @@ def community_detail(request, name):
     posts = Post.objects.filter(community=community).order_by('-created_at')
     return render(request, 'myapp/community_detail.html', {'community': community, 'posts': posts})
 
-@login_required
+
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -87,7 +87,7 @@ def create_post(request):
         form = PostForm()
     return render(request, 'myapp/create_post.html', {'form': form})
 
-@login_required
+
 def create_post_in_community(request, name):
     community = get_object_or_404(Community, name=name)
     if request.method == 'POST':
@@ -124,7 +124,7 @@ def post_detail(request, post_id):
         'form': form,
     })
 
-@login_required
+
 def toggle_upvote(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     user = request.user
@@ -135,7 +135,7 @@ def toggle_upvote(request, post_id):
     return redirect(request.META.get('HTTP_REFERER', 'home'))
 
 # ---------------------- PROFILE ----------------------
-@login_required
+
 def user_profile(request, username=None):
     if username:
         user_obj = get_object_or_404(User, username=username)
@@ -149,7 +149,7 @@ def user_profile(request, username=None):
         'posts': posts
     })
 
-@login_required
+
 def edit_profile(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -173,7 +173,7 @@ def edit_profile(request):
     return render(request, "myapp/edit_profile.html") 
 
 # ---------------------- EVENTS ----------------------
-@login_required
+
 def submit_event(request):
     if request.method == 'POST':
         form = EventForm(request.POST, request.FILES)
@@ -193,7 +193,7 @@ def search(request):
     results = Post.objects.filter(title__icontains=query) if query else []
     return render(request, 'myapp/search_results.html', {'results': results, 'query': query})
 
-@login_required
+
 def feed(request):
     posts = Post.objects.all().order_by('-created_at')
     form = PostForm()
