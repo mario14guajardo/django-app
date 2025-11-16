@@ -3,8 +3,7 @@ from pathlib import Path
 import dj_database_url
 from django.contrib.auth import REDIRECT_FIELD_NAME
 
-print("LOGIN_URL:", LOGIN_URL)
-print("REDIRECT_FIELD_NAME:", REDIRECT_FIELD_NAME)
+
 
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/"
