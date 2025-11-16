@@ -32,7 +32,7 @@ urlpatterns = [
 
     # Auth
     path('signup/', signup_view, name='signup'),
-    path('login/', login_view, name='login'),
+    path('accounts/login/', RedirectView.as_view(url='/login/', permanent=True),
     path('logout/', logout_view, name='logout'),
 
     # Community
@@ -59,7 +59,6 @@ urlpatterns = [
     # Feed
     path("feed/", feed, name="feed"),
 
-    path("accounts/login/", RedirectView.as_view(url="/login/", permanent=True)),
 ]
 
 if settings.DEBUG:
