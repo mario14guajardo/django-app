@@ -189,9 +189,10 @@ def submit_event_success(request):
 
 # ---------------------- SEARCH ----------------------
 def search(request):
-    query = request.GET.get('q', '')
-    results = Post.objects.filter(title__icontains=query) if query else []
-    return render(request, 'myapp/search_results.html', {'query': query, 'results':results})
+    #query = request.GET.get('q', '')
+    #results = Post.objects.filter(title__icontains=query) if query else []
+   # return render(request, 'myapp/search_results.html', {'query': query, 'results':results})
+    retrun render(request, 'myapp/search_results.html', {'query': 'test', 'results;"[]})
 
 
 def feed(request):
