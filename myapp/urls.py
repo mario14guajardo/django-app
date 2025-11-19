@@ -50,9 +50,9 @@ urlpatterns = [
     # Profile
     path('profile/', user_profile, name='profile'),
     path('profile/edit/', edit_profile, name='edit_profile'),
-    path('profile/<str:username>/', user_profile, name='user_profile'),
     path('profile/reset-avatar/', reset_avatar, name='reset_avatar'),
-
+    path('profile/<str:username>/', user_profile, name='user_profile'),
+    
     # Events
     path('events/submit/', submit_event, name='submit_event'),
     path('events/success/', submit_event_success, name='submit_event_success'),
