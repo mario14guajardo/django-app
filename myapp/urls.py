@@ -56,7 +56,7 @@ urlpatterns = [
     path('events/success/', submit_event_success, name='submit_event_success'),
 
     # Search
-    path('search/', search, name='search'),
+    path('search/', views.search, name='search'),
 
     # Feed
     path('feed/', feed, name='feed'),
