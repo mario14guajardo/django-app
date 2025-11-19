@@ -31,6 +31,10 @@
                 style="max-width: 180px;"
                 alt="{{ user.username }}"
             >
+            <a href="{% url 'reset_avatar' %}" class="btn btn-warning mt-2"
+                onclick="return confirm('Are you sure you want to reset your profile picture?');">
+                Reset to Default
+            </a>
         </div>
         {% endif %}
 
