@@ -172,6 +172,12 @@ def edit_profile(request):
 
     return render(request, "myapp/edit_profile.html") 
 
+def reset_avatar(request):
+    profile = request.user.profile
+    profile.avatar.delete(save=True)
+    messages.success(request, "Profile picture has been reset to default.")
+    return redirect("edit_profile")
+
 # ---------------------- EVENTS ----------------------
 
 def submit_event(request):
