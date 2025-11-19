@@ -50,6 +50,7 @@ urlpatterns = [
     path('profile/', user_profile, name='profile'),
     path('profile/edit/', edit_profile, name='edit_profile'),
     path('profile/<str:username>/', user_profile, name='user_profile'),
+    path('profile/reset-avatar/', views.reset_avatar, name='reset_avatar'),
 
     # Events
     path('events/submit/', submit_event, name='submit_event'),
