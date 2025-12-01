@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Community, Post, Event, Badge, Profile, Comment
 from .forms import PostForm, CommentForm, ProfileForm, EventForm, RegisterForm
+from .utils.supabase_upload import upload_to_supabase
 
 # ---------------------- BASIC PAGES ----------------------
 
@@ -157,7 +158,8 @@ def edit_profile(request):
         avatar = request.FILES.get("avatar")
         if avatar:
             profile = request.user.profile
-            profile.avatar = avatar
+            url = upload_to_supabase(avatar)
+            profile.avatar_url = url
             profile.save()
 
         request.user.username = username
