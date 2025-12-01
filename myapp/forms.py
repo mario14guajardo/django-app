@@ -16,7 +16,10 @@ class CommentForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['avatar', 'bio']
+        fields = ['avatar_url', 'bio']
+        labels = {
+            'avatar_url': 'Profile Picture URL',
+        }
 
 class EventForm(forms.ModelForm):
     class Meta:
