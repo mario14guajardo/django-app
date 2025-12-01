@@ -8,7 +8,7 @@
 
             <!-- Profile Picture -->
             <img
-                src="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}{% static 'myapp/default_avatar.png' %}{% endif %}"
+                src="{% if user.profile.avatar_url %}{{ user.profile.avatar_url }}{% else %}{% static 'myapp/default_avatar.png' %}{% endif %}"
                 class="img-fluid rounded-circle mb-3"
                 style="max-width: 180px;"
                 alt="{{ user.username }}"
