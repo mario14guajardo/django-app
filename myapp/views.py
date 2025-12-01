@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Community, Post, Event, Badge, Profile, Comment
 from .forms import PostForm, CommentForm, ProfileForm, EventForm, RegisterForm
-from .utils.supabase_upload import upload_to_supabase
+from .supabase_upload import upload_to_supabase
 
 # ---------------------- BASIC PAGES ----------------------
 
