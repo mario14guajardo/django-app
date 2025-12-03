@@ -15,6 +15,11 @@
         margin: 0 auto;
     }
 
+    .posts-wrapper {
+        max-width: 900px;
+        margin: 0 auto;       /* centers posts directly under form */
+    }
+
     /* Sharper UI */
     .card, .form-control {
         border-radius: 10px !important;
@@ -30,7 +35,7 @@
 
 <div class="container feed-container mt-4">
 
-    <!-- POST FORM (WIDER + CENTERED) -->
+    <!-- POST FORM -->
     <div class="card p-4 mb-5 shadow-sm post-form-card">
         <h5 class="fw-bold mb-3 text-center">Create a Post</h5>
         <form method="POST" action="{% url 'create_post' %}">
@@ -43,18 +48,22 @@
         </form>
     </div>
 
-    <!-- POSTS LIST (CLEARLY BELOW FORM) -->
-    <div class="mt-4">
+    <!-- POSTS LIST (NOW DIRECTLY UNDER FORM + CENTERED) -->
+    <div class="posts-wrapper">
         {% for post in posts %}
             <div class="card p-4 mb-4 shadow-sm">
                 <p class="fw-bold mb-1 text-center">
-                    <a href="{% url 'user_profile' post.author.username %}" class="text-dark text-decoration-none">
+                    <a href="{% url 'user_profile' post.author.username %}"
+                       class="text-dark text-decoration-none">
                         {{ post.author.username }}
                     </a>
                 </p>
+
                 <h5 class="text-center">{{ post.title }}</h5>
                 <p class="mt-2">{{ post.body }}</p>
-                <small class="text-muted d-block text-end">{{ post.created_at|date:"M d, Y h:i A" }}</small>
+                <small class="text-muted d-block text-end">
+                    {{ post.created_at|date:"M d, Y h:i A" }}
+                </small>
             </div>
         {% empty %}
             <p class="text-muted text-center">No posts yet.</p>
