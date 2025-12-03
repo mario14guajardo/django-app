@@ -153,11 +153,13 @@ def user_profile(request, username=None):
 
 def edit_profile(request):
     if request.method == "POST":
+        profile, created = Profile.objects.get_or_create(user=request.user)
+
         username = request.POST.get("username")
         email = request.POST.get("email")
+
         avatar = request.FILES.get("avatar")
         if avatar:
-            profile = request.user.profile
             url = upload_to_supabase(avatar)
             profile.avatar_url = url
             profile.save()
@@ -166,13 +168,10 @@ def edit_profile(request):
         request.user.email = email
         request.user.save()
 
-        profile, created = Profile.objects.get_or_create(user=request.user)
-        
-
         messages.success(request, "Profile updated.")
         return redirect("profile")
 
-    return render(request, "myapp/edit_profile.html") 
+    return render(request, "myapp/edit_profile.html")
 
 def reset_avatar(request):
     profile = request.user.profile
