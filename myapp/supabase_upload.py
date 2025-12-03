@@ -1,6 +1,7 @@
 from supabase import create_client
 from django.conf import settings
 import uuid
+import os
 
 def upload_to_supabase(file):
   supabase = create_client(settings.SUPABASE_URL, settings.SUPABASE_KEY)
