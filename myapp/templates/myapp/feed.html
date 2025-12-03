@@ -3,61 +3,63 @@
 {% block content %}
 
 <style>
-    /* Make container wider and centered */
+    /* Wider feed area */
     .feed-container {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    /* Extra-wide post form */
+    .post-form-card {
         max-width: 900px;
         margin: 0 auto;
     }
 
-    /* Sharper text + cleaner form fields */
+    /* Sharper UI */
     .card, .form-control {
         border-radius: 10px !important;
     }
-
     input, textarea {
-        font-size: 1.05rem !important;
+        font-size: 1.08rem !important;
         font-weight: 500;
     }
-
     label {
         font-weight: 600;
-    }
-
-    .card h5, .card p {
-        font-family: "Inter", "Segoe UI", sans-serif;
-        letter-spacing: 0.2px;
     }
 </style>
 
 <div class="container feed-container mt-4">
 
-    <!-- POST FORM -->
-    <div class="card p-4 mb-4 shadow-sm">
+    <!-- POST FORM (WIDER + CENTERED) -->
+    <div class="card p-4 mb-5 shadow-sm post-form-card">
         <h5 class="fw-bold mb-3 text-center">Create a Post</h5>
         <form method="POST" action="{% url 'create_post' %}">
             {% csrf_token %}
             {{ form.as_p }}
+
             <div class="text-center">
                 <button type="submit" class="btn btn-warning text-white px-4">Post</button>
             </div>
         </form>
     </div>
 
-    <!-- POSTS LIST -->
-    {% for post in posts %}
-        <div class="card p-4 mb-4 shadow-sm">
-            <p class="fw-bold mb-1 text-center">
-                <a href="{% url 'user_profile' post.author.username %}" class="text-dark text-decoration-none">
-                    {{ post.author.username }}
-                </a>
-            </p>
-            <h5 class="text-center">{{ post.title }}</h5>
-            <p class="mt-2">{{ post.body }}</p>
-            <small class="text-muted d-block text-end">{{ post.created_at|date:"M d, Y h:i A" }}</small>
-        </div>
-    {% empty %}
-        <p class="text-muted text-center">No posts yet.</p>
-    {% endfor %}
+    <!-- POSTS LIST (CLEARLY BELOW FORM) -->
+    <div class="mt-4">
+        {% for post in posts %}
+            <div class="card p-4 mb-4 shadow-sm">
+                <p class="fw-bold mb-1 text-center">
+                    <a href="{% url 'user_profile' post.author.username %}" class="text-dark text-decoration-none">
+                        {{ post.author.username }}
+                    </a>
+                </p>
+                <h5 class="text-center">{{ post.title }}</h5>
+                <p class="mt-2">{{ post.body }}</p>
+                <small class="text-muted d-block text-end">{{ post.created_at|date:"M d, Y h:i A" }}</small>
+            </div>
+        {% empty %}
+            <p class="text-muted text-center">No posts yet.</p>
+        {% endfor %}
+    </div>
 
 </div>
 
