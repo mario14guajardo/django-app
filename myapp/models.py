@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # ---------------------- PROFILE ----------------------
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar_url = models.URLField(blank=True, null=True)
+    avatar_url = models.URLField(max_length=500, blank=True, null=True)
     bio = models.TextField(blank=True)
     # Add more fields for UI settings, badges, reputation, etc.
 
