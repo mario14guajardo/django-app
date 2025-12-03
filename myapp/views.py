@@ -147,7 +147,7 @@ def user_profile(request, username=None):
     posts = Post.objects.filter(author=user_obj).order_by('-created_at')
     return render(request, 'myapp/user_profile.html', {
         'profile': profile,
-        'posts': posts
+        'posts': posts,
     })
 
 
