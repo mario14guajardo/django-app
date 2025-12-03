@@ -143,8 +143,6 @@ LOGGING["loggers"] = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-SUPABASE_URL = "https://ophbseseemjfqejeyqzd.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9waGJzZXNlZW1qZnFlamV5cXpkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MzIyNDI3NywiZXhwIjoyMDc4ODAwMjc3fQ.bMbds_uECL3AIUNr0Hhivb-JF6xcLUm7SJarkb7THYQ"
-SUPABASE_BUCKET = "avatars"
+
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
