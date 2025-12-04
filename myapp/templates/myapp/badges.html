@@ -1,15 +1,14 @@
 {% extends "myapp/base.html" %}
 
 {% block content %}
-<div class="container mt-4">
+<div class="container mt-4 text-center">
 
-    <!-- Bigger centered title -->
-    <h1 style="font-size: 3rem; text-align: center; margin-bottom: 20px;">Badges</h1>
-    <hr>
+    <!-- BIG, CENTERED TITLE -->
+    <h1 style="font-size: 3rem; margin-bottom: 10px;">Badges</h1>
+    <hr style="width: 50%; margin: 0 auto 30px auto;">
 
     {% if badges %}
-        <!-- Force badges to appear BELOW title, not beside -->
-        <div class="row mt-4">
+        <div class="row justify-content-center mt-4">
             {% for badge in badges %}
                 <div class="col-md-4 mb-4">
                     <div class="card text-center h-100">
@@ -26,8 +25,10 @@
                 </div>
             {% endfor %}
         </div>
+
     {% else %}
-        <p class="text-center mt-4">No badges available yet.</p>
+        <!-- CENTERED EMPTY MESSAGE -->
+        <p style="font-size: 1.2rem; margin-top: 20px;">No badges available yet.</p>
     {% endif %}
 
 </div>
