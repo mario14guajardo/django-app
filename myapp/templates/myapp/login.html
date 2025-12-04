@@ -1,13 +1,13 @@
 {% extends "myapp/base.html" %}
 {% block content %}
 
-<!-- Full-page center alignment -->
-<div class="d-flex justify-content-center align-items-center" style="min-height: 85vh;">
+<!-- TRUE PERFECT CENTERING -->
+<div class="d-flex justify-content-center align-items-center" 
+     style="height: calc(100vh - 80px);">
 
     <!-- Larger modern card -->
     <div class="card shadow-lg p-5" style="width: 450px; border-radius: 16px;">
 
-        <!-- Bigger centered title -->
         <h1 class="text-center mb-4" style="font-weight: 700; font-size: 2.2rem;">
             Login
         </h1>
@@ -18,20 +18,18 @@
 
         <form method="POST">
             {% csrf_token %}
+            <input name="username" class="form-control mb-4" 
+                   style="height: 50px; font-size: 1.1rem;" placeholder="Username" required>
 
-            <!-- Larger input fields -->
-            <input name="username" class="form-control mb-4" style="height: 50px; font-size: 1.1rem;" placeholder="Username" required>
+            <input name="password" type="password" class="form-control mb-4" 
+                   style="height: 50px; font-size: 1.1rem;" placeholder="Password" required>
 
-            <input name="password" type="password" class="form-control mb-4" style="height: 50px; font-size: 1.1rem;" placeholder="Password" required>
-
-            <!-- Larger login button -->
             <button class="btn btn-primary w-100 mb-4" 
                     style="padding: 14px; font-size: 1.15rem; border-radius: 6px;">
                 Login
             </button>
         </form>
 
-        <!-- Centered register link -->
         <p class="text-center" style="font-size: 1rem;">
             Don’t have an account?
             <a href="{% url 'signup' %}">Register</a>
