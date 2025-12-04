@@ -2,11 +2,14 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h2>Badges</h2>
+
+    <!-- Bigger centered title -->
+    <h1 style="font-size: 3rem; text-align: center; margin-bottom: 20px;">Badges</h1>
     <hr>
-    
+
     {% if badges %}
-        <div class="row">
+        <!-- Force badges to appear BELOW title, not beside -->
+        <div class="row mt-4">
             {% for badge in badges %}
                 <div class="col-md-4 mb-4">
                     <div class="card text-center h-100">
@@ -24,7 +27,8 @@
             {% endfor %}
         </div>
     {% else %}
-        <p>No badges available yet.</p>
+        <p class="text-center mt-4">No badges available yet.</p>
     {% endif %}
+
 </div>
 {% endblock %}
