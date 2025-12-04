@@ -3,14 +3,23 @@
 {% block content %}
 <div class="container mt-5">
 
-    <!-- Centered column like the Create Post page -->
+    <!-- Centered column like Create Post page -->
     <div class="col-md-8 mx-auto text-center">
 
-        <!-- Big centered title -->
-        <h1 style="font-size: 3rem; margin-bottom: 10px;">Badges</h1>
+        <!-- Title (25% bigger + spaced + centered) -->
+        <h1 style="font-size: 3.75rem; margin-bottom: 20px; font-weight: 600;">
+            Badges
+        </h1>
 
-        <!-- Light, short divider like the form card -->
-        <hr style="width: 60%; margin: 0 auto 30px auto; opacity: 0.3;">
+        <!-- Pronounced divider with shadow -->
+        <hr style="
+            width: 60%;
+            margin: 0 auto 35px auto;
+            height: 3px;
+            background-color: #444;
+            border: none;
+            box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+        ">
 
         {% if badges %}
             <div class="row mt-4 justify-content-center">
@@ -30,9 +39,8 @@
                     </div>
                 {% endfor %}
             </div>
-
         {% else %}
-            <!-- Centered like No posts yet -->
+            <!-- Centered "no badges" message -->
             <p style="font-size: 1.2rem; margin-top: 30px;">No badges available yet.</p>
         {% endif %}
 
