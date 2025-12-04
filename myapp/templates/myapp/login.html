@@ -2,13 +2,15 @@
 {% block content %}
 
 <!-- Full-page center alignment -->
-<div class="d-flex justify-content-center align-items-center" style="min-height: 75vh;">
+<div class="d-flex justify-content-center align-items-center" style="min-height: 85vh;">
 
-    <!-- Modern card container -->
-    <div class="card shadow-lg p-4" style="width: 360px; border-radius: 12px;">
+    <!-- Larger modern card -->
+    <div class="card shadow-lg p-5" style="width: 450px; border-radius: 16px;">
 
-        <!-- Centered title -->
-        <h2 class="text-center mb-4" style="font-weight: 600;">Login</h2>
+        <!-- Bigger centered title -->
+        <h1 class="text-center mb-4" style="font-weight: 700; font-size: 2.2rem;">
+            Login
+        </h1>
 
         {% if error %}
             <div class="alert alert-danger text-center">{{ error }}</div>
@@ -17,19 +19,20 @@
         <form method="POST">
             {% csrf_token %}
 
-            <!-- Input fields -->
-            <input name="username" class="form-control mb-3" placeholder="Username" required>
+            <!-- Larger input fields -->
+            <input name="username" class="form-control mb-4" style="height: 50px; font-size: 1.1rem;" placeholder="Username" required>
 
-            <input name="password" type="password" class="form-control mb-3" placeholder="Password" required>
+            <input name="password" type="password" class="form-control mb-4" style="height: 50px; font-size: 1.1rem;" placeholder="Password" required>
 
-            <!-- Login button -->
-            <button class="btn btn-primary w-100 mb-3" style="padding: 10px; font-size: 16px;">
+            <!-- Larger login button -->
+            <button class="btn btn-primary w-100 mb-4" 
+                    style="padding: 14px; font-size: 1.15rem; border-radius: 6px;">
                 Login
             </button>
         </form>
 
-        <!-- Register link below form -->
-        <p class="text-center" style="font-size: 14px;">
+        <!-- Centered register link -->
+        <p class="text-center" style="font-size: 1rem;">
             Don’t have an account?
             <a href="{% url 'signup' %}">Register</a>
         </p>
