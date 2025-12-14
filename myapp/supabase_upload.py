@@ -22,5 +22,5 @@ def upload_to_supabase(file):
         file_options={"content-type": file.content_type}
     )
 
-    public_url = supabase.storage.from_(SUPABASE_BUCKET).get_public_url(path)['public_url']
+    public_url = supabase.storage.from_(SUPABASE_BUCKET).get_public_url(path)
     return public_url
