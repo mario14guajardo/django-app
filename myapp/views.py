@@ -176,6 +176,7 @@ def edit_profile(request):
 def reset_avatar(request):
     profile = request.user.profile
     profile.avatar_url = None
+    profile.save()
     messages.success(request, "Profile picture has been reset to default.")
     return redirect("edit_profile")
 
