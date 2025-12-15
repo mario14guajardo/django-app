@@ -13,9 +13,11 @@ from .forms import PostForm, CommentForm, ProfileForm, EventForm, RegisterForm
 def home(request):
     posts = Post.objects.all().order_by('-created_at')
     announcements = Announcement.objects.all().order_by('-id')
+    events = Event.objects.order_by('date')[:5]
     return render(request, 'myapp/home.html', {
         'posts': posts,
         'announcements': announcements,
+        'events': events,
     })
 
 
