@@ -34,6 +34,7 @@ class Post(models.Model):
     body = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     community = models.ForeignKey(Community, null=True, blank=True, on_delete=models.SET_NULL)
+    club = models.ForeignKey('Club', null=True, blank=True, on_delete=models.SET_NULL, related_name='posts')
     created_at = models.DateTimeField(auto_now_add=True)
     upvotes = models.ManyToManyField(User, related_name="upvoted_posts", blank=True)
 
