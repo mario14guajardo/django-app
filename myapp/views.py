@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Community, Post, Event, Badge, Profile, Comment
+from .models import Community, Post, Event, Badge, Profile, Comment, Announcement
 from .forms import PostForm, CommentForm, ProfileForm, EventForm, RegisterForm
 from .supabase_upload import upload_to_supabase
 
@@ -11,7 +11,7 @@ from .supabase_upload import upload_to_supabase
 
 def home(request):
     posts = Post.objects.all().order_by('-created_at')
-    announcements = []
+    announcements = Announcement.objects.all().order_by('-created_at')
     events = []
     context = {
         "posts": posts,
