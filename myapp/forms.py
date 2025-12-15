@@ -24,7 +24,7 @@ class ProfileForm(forms.ModelForm):
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ['title', 'description', 'date', 'image']
+        fields = ['title', 'description', 'location', 'date', 'time']
 
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
