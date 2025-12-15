@@ -1,10 +1,13 @@
+{% extends "myapp/base.html" %}
+{% block title %}Home{% endblock %}
+
 <p>DEBUG: {{ posts|length }} posts found.</p>
 {% for post in posts %}
   <p>{{ post.title }} by {{ post.author.username }}</p>
 {% endfor %}
 
-{% extends "myapp/base.html" %}
-{% block title %}Home{% endblock %}
+#{% extends "myapp/base.html" %}
+#{% block title %}Home{% endblock %}
 
 {% block content %}
 <div class="row">
