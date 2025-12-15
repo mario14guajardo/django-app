@@ -274,3 +274,23 @@ def club_detail(request, club_name):
         'club':club,
         'posts':posts,
     })
+
+def create_post_in_club(request, club_name):
+    club = get_object_or_404(Club, name=club_name)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.club = club
+            post.save()
+            return redirect('club_detail', club_name=club.name)
+    else:
+        form = PostForm()
+
+    return render(request, 'myapp/create_post_in_club.html', {
+        'form': form,
+        'club': club
+    })
+
