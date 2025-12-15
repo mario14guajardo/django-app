@@ -66,8 +66,9 @@ class Event(models.Model):
 # ---------------------- BADGES ----------------------
 class Badge(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
+    description = models.TextField()
     image = models.ImageField(upload_to="badges/", blank=True, null=True)
+    unlocked = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
