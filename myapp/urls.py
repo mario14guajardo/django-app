@@ -2,6 +2,7 @@ from django.urls import path
 from django.conf import settings
 from django.views.generic.base import RedirectView
 from django.conf.urls.static import static
+
 from .views import (
     home,
     login_view,
@@ -13,7 +14,6 @@ from .views import (
     contact,
     school_map,
     badges,
-    events,
     community_detail,
     create_post_in_community,
     create_post,
@@ -53,9 +53,8 @@ urlpatterns = [
     path('profile/edit/', edit_profile, name='edit_profile'),
     path('profile/reset-avatar/', reset_avatar, name='reset_avatar'),
     path('profile/<str:username>/', user_profile, name='user_profile'),
-    
-    # Events
-    path('events/', events, name='events'),
+
+    # Events (submission only — no events list page yet)
     path('events/submit/', submit_event, name='submit_event'),
     path('events/success/', submit_event_success, name='submit_event_success'),
 
