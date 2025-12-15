@@ -11,7 +11,10 @@ from .supabase_upload import upload_to_supabase
 
 def home(request):
     posts = Post.objects.all().order_by('-created_at')
-    return render(request, 'myapp/home.html', {'posts': posts})
+    context = {
+        "posts":posts,
+    }
+    return render(request, 'myapp/home.html', context)
 
 def contact(request):
     return render(request, 'myapp/contact.html')
