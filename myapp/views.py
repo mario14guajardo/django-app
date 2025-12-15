@@ -191,9 +191,11 @@ def reset_avatar(request):
 
 def submit_event(request):
     if request.method == 'POST':
-        form = EventForm(request.POST, request.FILES)
+        form = EventForm(request.POST)
         if form.is_valid():
-            form.save()
+            event = form.save(commit=False)
+            event.created_by = request.user
+            event.save()
             return redirect('submit_event_success')
     else:
         form = EventForm()
