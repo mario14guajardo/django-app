@@ -4,16 +4,31 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .models import Community, Post, Event, Badge, Profile, Comment, Announcement, Club
+from .models import (
+    Community,
+    Post,
+    Event,
+    Badge,
+    Profile,
+    Comment,
+    Announcement,
+    Club
+)
 from .forms import PostForm, CommentForm, ProfileForm, EventForm, RegisterForm
 
 
 # ---------------------- BASIC PAGES ----------------------
 
 def home(request):
-    posts = Post.objects.all().order_by('-created_at')
+    # ONLY public posts (not club, not community)
+    posts = Post.objects.filter(
+        club__isnull=True,
+        community__isnull=True
+    ).order_by('-created_at')
+
     announcements = Announcement.objects.all().order_by('-id')
     events = Event.objects.order_by('date')[:5]
+
     return render(request, 'myapp/home.html', {
         'posts': posts,
         'announcements': announcements,
@@ -88,33 +103,22 @@ def logout_view(request):
 
 
 # ---------------------- COMMUNITY ----------------------
+
 def community(request):
     clubs = Club.objects.all()
     return render(request, 'myapp/community.html', {
         'clubs': clubs
     })
 
+
 def community_detail(request, name):
     community = get_object_or_404(Community, name=name)
     posts = Post.objects.filter(community=community).order_by('-created_at')
+
     return render(request, 'myapp/community_detail.html', {
         'community': community,
         'posts': posts
     })
-
-
-def create_post(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
-            return redirect('home')
-    else:
-        form = PostForm()
-
-    return render(request, 'myapp/create_post.html', {'form': form})
 
 
 def create_post_in_community(request, name):
@@ -137,7 +141,67 @@ def create_post_in_community(request, name):
     })
 
 
+# ---------------------- CLUBS ----------------------
+
+def club_detail(request, club_name):
+    club = get_object_or_404(Club, name=club_name)
+    posts = club.posts.all().order_by('-created_at')
+
+    if request.method == "POST":
+        if request.user in club.members.all():
+            club.members.remove(request.user)
+        else:
+            club.members.add(request.user)
+        return redirect('club_detail', club_name=club.name)
+
+    return render(request, 'myapp/club_detail.html', {
+        'club': club,
+        'posts': posts,
+    })
+
+
+@login_required
+def create_post_in_club(request, club_name):
+    club = get_object_or_404(Club, name=club_name)
+
+    # Optional safety: only members can post
+    if request.user not in club.members.all():
+        messages.error(request, "You must be a club member to post.")
+        return redirect('club_detail', club_name=club.name)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.club = club
+            post.save()
+            return redirect('club_detail', club_name=club.name)
+    else:
+        form = PostForm()
+
+    return render(request, 'myapp/create_post_in_club.html', {
+        'form': form,
+        'club': club
+    })
+
+
 # ---------------------- POSTS ----------------------
+
+def create_post(request):
+    # Public post
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect('home')
+    else:
+        form = PostForm()
+
+    return render(request, 'myapp/create_post.html', {'form': form})
+
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
@@ -246,51 +310,24 @@ def submit_event_success(request):
 def search(request):
     query = request.GET.get('q', '')
     results = Post.objects.filter(title__icontains=query) if query else []
+
     return render(request, 'myapp/search_results.html', {
         'query': query,
         'results': results
     })
 
 
+# ---------------------- FEED ----------------------
+
 def feed(request):
-    posts = Post.objects.all().order_by('-created_at')
+    # ONLY public posts
+    posts = Post.objects.filter(
+        club__isnull=True,
+        community__isnull=True
+    ).order_by('-created_at')
+
     form = PostForm()
     return render(request, "myapp/feed.html", {
         "posts": posts,
         "form": form,
     })
-
-def club_detail(request, club_name):
-    club = get_object_or_404(Club, name=club_name)
-    posts = club.posts.all().order_by('-created_at')
-
-    if request.method == "POST":
-        if request.user in club.members.all():
-            club.members.remove(request.user)
-        else:
-            club.members.add(request.user)
-        return redirect('club_detail', club_name=club.name)
-    return render(request, 'myapp/club_detail.html', {
-        'club':club,
-        'posts':posts,
-    })
-
-def create_post_in_club(request, club_name):
-    club = get_object_or_404(Club, name=club_name)
-
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.club = club
-            post.save()
-            return redirect('club_detail', club_name=club.name)
-    else:
-        form = PostForm()
-
-    return render(request, 'myapp/create_post_in_club.html', {
-        'form': form,
-        'club': club
-    })
-
