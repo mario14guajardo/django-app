@@ -26,16 +26,10 @@
                 <div class="col-md-4 mb-4">
                     <div class="card text-center h-100 shadow-sm bg-light rounded badge-card">
                         
-                        <!-- Badge Image -->
-                        {% if badge.image_url %}
-                            <img src="{{ badge.image_url }}"
-                                 class="card-img-top p-3 badge-img {% if not badge.unlocked %}grayscale{% endif %}"
-                                 alt="{{ badge.name }}">
-                        {% else %}
-                            <img src="https://via.placeholder.com/150"
-                                 class="card-img-top p-3 badge-img"
-                                 alt="No image">
-                        {% endif %}
+                        <!-- Emoji badge -->
+                        <div class="badge-emoji mb-3 {% if not badge.unlocked %}grayscale{% endif %}">
+                            {{ badge.emoji|default:"🏅" }}
+                        </div>
 
                         <div class="card-body">
                             <h5 class="card-title fw-semibold">{{ badge.name }}</h5>
@@ -44,13 +38,9 @@
 
                         <!-- Badge Status -->
                         {% if badge.unlocked %}
-                            <div class="badge-status text-success mb-2">
-                                &#10004; Unlocked
-                            </div>
+                            <div class="badge-status text-success mb-2">&#10004; Unlocked</div>
                         {% else %}
-                            <div class="badge-status text-secondary mb-2">
-                                &#128274; Locked
-                            </div>
+                            <div class="badge-status text-secondary mb-2">&#128274; Locked</div>
                         {% endif %}
                     </div>
                 </div>
@@ -80,15 +70,12 @@
     box-shadow: 0 6px 20px rgba(0,0,0,0.12);
 }
 
-.badge-img {
-    height: 150px;
-    object-fit: contain;
+.badge-emoji {
+    font-size: 4rem;
     transition: transform 0.2s;
 }
-
-/* Hover effect */
-.badge-img:hover {
-    transform: scale(1.05);
+.badge-emoji:hover {
+    transform: scale(1.1);
 }
 
 /* Grayscale for locked badges */
