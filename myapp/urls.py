@@ -42,7 +42,7 @@ urlpatterns = [
     path('accounts/login/', RedirectView.as_view(url='/login/', permanent=True)),
 
     # Community
-    path('community/', views.community, name='community'),
+    path('community/', community, name='community'),
     path('c/<str:name>/', community_detail, name='community_detail'),
     path('c/<str:name>/create/', create_post_in_community, name='create_post_in_community'),
 
