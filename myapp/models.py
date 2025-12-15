@@ -4,12 +4,12 @@ from django.contrib.auth.models import User
 # ---------------------- PROFILE ----------------------
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar_url = models.URLField(max_length=500, blank=True, null=True)
+    avatar = models.ImageField(upload_to="profile_pics/", default="default.jpg")
     bio = models.TextField(blank=True)
-    # Add more fields for UI settings, badges, reputation, etc.
 
     def __str__(self):
         return self.user.username
+
 
 # ---------------------- COMMUNITY ----------------------
 class Community(models.Model):
@@ -18,6 +18,7 @@ class Community(models.Model):
 
     def __str__(self):
         return self.name
+
 
 # ---------------------- POSTS ----------------------
 class Post(models.Model):
@@ -31,6 +32,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+
 # ---------------------- COMMENTS ----------------------
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name="comments", on_delete=models.CASCADE)
@@ -41,16 +43,17 @@ class Comment(models.Model):
     def __str__(self):
         return f"{self.author.username} - {self.content[:20]}"
 
+
 # ---------------------- EVENTS ----------------------
 class Event(models.Model):
     title = models.CharField(max_length=200)
-    description = models.TextField(blank=True)
+    description = models.TextField()
     date = models.DateTimeField()
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     image = models.ImageField(upload_to="event_images/", blank=True, null=True)
 
     def __str__(self):
         return self.title
+
 
 # ---------------------- BADGES ----------------------
 class Badge(models.Model):
@@ -60,11 +63,3 @@ class Badge(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Announcement(models.Model):
-    text = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.text[:50]
