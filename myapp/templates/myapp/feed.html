@@ -2,75 +2,113 @@
 {% block title %}Home Feed{% endblock %}
 {% block content %}
 
-
 <style>
-    /* Main container */
-    .feed-container {
-        max-width: 1100px;
-        margin: 0 auto;
-    }
+/* --- Main Feed Container --- */
+.feed-container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
 
-    /* Wider centered post form */
-    .post-form-card {
-        max-width: 900px;
-        margin: 0 auto;
-        border-radius: 12px !important;
-    }
+/* --- Post Form Card --- */
+.post-form-card {
+    max-width: 900px;
+    margin: 0 auto 3rem auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    background-color: #ffffff;
+}
 
-    /* Posts container - FORCE CENTER & STACK */
-    .posts-wrapper {
-        max-width: 900px;
-        margin: 0 auto !important;
-        display: block;
-    }
+/* --- Posts Wrapper --- */
+.posts-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+}
 
-    /* Sharper form look */
-    .card, .form-control {
-        border-radius: 10px !important;
-    }
-    input, textarea {
-        font-size: 1.1rem !important;
-        font-weight: 500;
-    }
-    label {
-        font-weight: 600;
-    }
+/* --- Post Card --- */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 1.8rem;
+    background-color: #fff;
+}
+
+/* --- Form Styling --- */
+input, textarea {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+label {
+    font-weight: 600;
+}
+
+/* --- Buttons --- */
+.btn-warning {
+    background-color: #f59e0b;
+    border: none;
+}
+.btn-warning:hover {
+    background-color: #d97706;
+}
+
+/* --- Text Styling --- */
+.post-author a {
+    text-decoration: none;
+    color: #1f2937;
+}
+.post-author a:hover {
+    text-decoration: underline;
+}
+.post-title {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-align: center;
+    color: #111827;
+}
+.post-body {
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+.post-meta {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
 </style>
 
-<div class="feed-container mt-4">
+<div class="feed-container">
 
-    <!-- POST FORM -->
-    <div class="card p-4 mb-5 shadow-sm post-form-card">
-        <h4 class="fw-bold text-center mb-3">Create a Post</h4>
+    <!-- CREATE POST FORM -->
+    <div class="post-form-card">
+        <h4 class="fw-bold text-center mb-4">Create a Post</h4>
 
         <form method="POST" action="{% url 'create_post' %}">
             {% csrf_token %}
             {{ form.as_p }}
-
             <div class="text-center mt-3">
-                <button type="submit" class="btn btn-warning text-white px-4">
+                <button type="submit" class="btn btn-warning px-4">
                     Post
                 </button>
             </div>
         </form>
     </div>
 
-    <!-- POSTS LIST UNDER FORM -->
+    <!-- POSTS LIST -->
     <div class="posts-wrapper">
         {% for post in posts %}
-            <div class="card p-4 mb-4 shadow-sm">
-                <p class="fw-bold mb-1 text-center">
-                    <a href="{% url 'user_profile' post.author.username %}" 
-                       class="text-dark text-decoration-none">
+            <div class="card mb-4">
+                <p class="post-author fw-bold mb-1 text-center">
+                    <a href="{% url 'user_profile' post.author.username %}">
                         {{ post.author.username }}
                     </a>
                 </p>
 
-                <h5 class="text-center">{{ post.title }}</h5>
+                <h5 class="post-title">{{ post.title }}</h5>
 
-                <p class="mt-2">{{ post.body }}</p>
+                <p class="post-body">{{ post.body }}</p>
 
-                <small class="text-muted d-block text-end">
+                <small class="post-meta d-block text-end">
                     {{ post.created_at|date:"M d, Y h:i A" }}
                 </small>
             </div>
