@@ -18,7 +18,7 @@ class Command(BaseCommand):
       ))
       return
 
-  user, _ = User.objects.get_or_create(
+  user, created = User.objects.get_or_create(
       username="demo_user",
       defaults={"email": "demo@example.com"}
   )
