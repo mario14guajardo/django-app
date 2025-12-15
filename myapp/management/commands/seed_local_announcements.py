@@ -13,11 +13,11 @@ class Command(BaseCommand):
 
         for text in announcements:
             announcement, created = Announcement.objects.get_or_create(
-                text=text
+                body=body
             )
             if created:
-                self.stdout.write(self.style.SUCCESS(f"Created announcement: {text}"))
+                self.stdout.write(self.style.SUCCESS(f"Created announcement: {body}"))
             else:
-                self.stdout.write(self.style.WARNING(f"Announcement already exists: {text}"))
+                self.stdout.write(self.style.WARNING(f"Announcement already exists: {body}"))
 
         self.stdout.write(self.style.SUCCESS("Finished seeding announcements!"))
