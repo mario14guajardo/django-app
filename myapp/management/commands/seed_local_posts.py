@@ -4,37 +4,36 @@ from django.contrib.auth.models import User
 from myapp.models import Post
 
 class Command(BaseCommand):
-  help = "Create example posts for LOCAL development only"
+    help = "Create example posts for LOCAL development only"
 
-  def handle(self, *args, **kwargs):
-    if not settings.DEBUG:
-      self.stdout.write(self.style.ERROR(
-        "DEBUG is False. Refusing to seed data."
-      ))
-      return
-    if Post.objects.exists():
-      self.stdout.write(self.style.WARNING(
-        "Posts already exist. Skipping seed."
-      ))
-      return
+    def handle(self, *args, **kwargs):
+        # Only run in DEBUG mode
+        if not settings.DEBUG:
+            self.stdout.write(self.style.ERROR("DEBUG=False. Refusing to seed data."))
+            return
 
-  user, created = User.objects.get_or_create(
-      username="demo_user",
-      defaults={"email": "demo@example.com"}
-  )
+        # Skip if posts already exist
+        if Post.objects.exists():
+            self.stdout.write(self.style.WARNING("Posts already exist. Skipping."))
+            return
 
-Post.objects.create(
-  author=user,
-  title="Welcome to the App 👋",
-  content="This is an example post created for local development."
-)
+        # Create or get demo user
+        user, _ = User.objects.get_or_create(
+            username="demo_user",
+            defaults={"email": "demo@example.com"}
+        )
 
-Post.objects.create(
-  author=user,
-  title="Second Example Post",
-  content="These posts only exist on the local server."
-)
+        # ✅ All post creation must be here, inside handle()
+        Post.objects.create(
+            author=user,
+            title="Welcome to the App 👋",
+            content="This example post only exists on the local server."
+        )
 
-self.stdout.write(self.style.SUCCESS(
-  "✅ Local example posts created."
-))
+        Post.objects.create(
+            author=user,
+            title="Local Development Post",
+            content="These posts will never appear on Railway."
+        )
+
+        self.stdout.write(self.style.SUCCESS("✅ Local example posts created."))
