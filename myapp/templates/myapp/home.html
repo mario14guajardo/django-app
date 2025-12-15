@@ -1,5 +1,6 @@
 {% extends "myapp/base.html" %}
 {% block title %}Home{% endblock %}
+{% block content %}
 
 <p>DEBUG: {{ posts|length }} posts found.</p>
 {% for post in posts %}
@@ -9,7 +10,7 @@
 #{% extends "myapp/base.html" %}
 #{% block title %}Home{% endblock %}
 
-{% block content %}
+#{% block content %}
 <div class="row">
     <div class="col-md-8">
         {% for post in posts %}
