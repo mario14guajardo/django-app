@@ -23,6 +23,7 @@ from .views import (
     submit_event_success,
     search,
     feed,
+    events,  # ✅ ADD THIS
 )
 
 urlpatterns = [
@@ -54,7 +55,8 @@ urlpatterns = [
     path('profile/reset-avatar/', reset_avatar, name='reset_avatar'),
     path('profile/<str:username>/', user_profile, name='user_profile'),
 
-    # Events (submission only — no events list page yet)
+    # Events
+    path('events/', events, name='events'),  # ✅ REQUIRED
     path('events/submit/', submit_event, name='submit_event'),
     path('events/success/', submit_event_success, name='submit_event_success'),
 
