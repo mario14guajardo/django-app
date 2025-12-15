@@ -72,3 +72,17 @@ class Badge(models.Model):
 
     def __str__(self):
         return self.name
+
+class Club(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    emoji = models.CharField(max_length=5, blank=True, null=True)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    members = models.ManyToManyField(User, related_name='clubs', blank=True)
+
+    def __str__(self):
+        return self.name
+
+    def member_count(self):
+        return self.members.count()
+    
