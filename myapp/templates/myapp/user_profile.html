@@ -1,5 +1,6 @@
 {% extends "myapp/base.html" %}
 {% load static %}
+
 {% block content %}
 <div class="container mt-4">
 
@@ -7,16 +8,21 @@
         <div class="col-md-4 text-center">
 
             <!-- Profile Picture -->
-            <img
-                src="{% if profile.avatar_url %}
-                        {{ profile.avatar_url }}?v={{ profile.id }}
-                    {% else %}
-                        {% static 'myapp/default_avatar.png' %}
-                    {% endif %}"
-                class="img-fluid rounded-circle mb-3"
-                style="max-width: 100px;"
-                alt="{{ profile.user.username }}"
-            >
+            {% if profile.avatar %}
+                <img
+                    src="{{ profile.avatar.url }}"
+                    class="img-fluid rounded-circle mb-3"
+                    style="max-width: 100px;"
+                    alt="{{ profile.user.username }}"
+                >
+            {% else %}
+                <img
+                    src="{% static 'myapp/default_avatar.png' %}"
+                    class="img-fluid rounded-circle mb-3"
+                    style="max-width: 100px;"
+                    alt="{{ profile.user.username }}"
+                >
+            {% endif %}
 
             <a href="{% url 'edit_profile' %}" class="btn btn-secondary">Edit Profile</a>
 
@@ -36,7 +42,11 @@
             {% for post in posts %}
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h5>
+                        <h5>
+                            <a href="{% url 'post_detail' post.id %}">
+                                {{ post.title }}
+                            </a>
+                        </h5>
                         <p>{{ post.body|truncatewords:20 }}</p>
                         <small class="text-muted">
                             {{ post.created_at|date:"M d, Y H:i" }}
