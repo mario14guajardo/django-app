@@ -26,6 +26,7 @@ from .views import (
     feed,
     events,  
     club_detail,
+    create_post_in_club,
 )
 
 urlpatterns = [
