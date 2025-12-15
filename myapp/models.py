@@ -13,10 +13,10 @@ class Profile(models.Model):
 
 # ---------------------- ANNOUNCEMENTS ----------------------
 class Announcement(models.Model):
-    body=models.TextField()
+    text = models.TextField()
 
     def __str__(self):
-        return self.body[:50]
+        return self.text[:50]
 
 
 # ---------------------- COMMUNITY ----------------------
