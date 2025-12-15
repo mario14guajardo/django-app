@@ -259,3 +259,16 @@ def feed(request):
         "posts": posts,
         "form": form,
     })
+
+def club_detail(request, club_name):
+    club = get_object_or_404(Club, name=club_name)
+
+    if request.method == "POST":
+        if request.user in club.members.all():
+            club.members.remove(request.user)
+        else:
+            club.members.add(request.user)
+        return redirect('club_detail', club_name=club.name)
+    return render(request, 'myapp/club_detail.html', {
+        'club':club
+    })
