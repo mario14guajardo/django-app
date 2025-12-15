@@ -16,7 +16,7 @@ class Announcement(models.Model):
     body=models.TextField()
 
     def __str__(self):
-        return self.text[:50]
+        return self.body[:50]
 
 
 # ---------------------- COMMUNITY ----------------------
