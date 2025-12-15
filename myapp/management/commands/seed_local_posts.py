@@ -49,7 +49,7 @@ class Command(BaseCommand):
             Post.objects.create(
                 author=user,
                 title=fake.sentence(nb_words=6),
-                content=fake.paragraph(nb_sentences=5)
+                body=fake.paragraph(nb_sentences=5)
             )
 
         self.stdout.write(self.style.SUCCESS(f"✅ {count} local example posts created."))
