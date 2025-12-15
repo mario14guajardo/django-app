@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from posts.models import Post
 
-class Command(Base Command):
+class Command(BaseCommand):
   help = "Create example posts for LOCAL development only"
 
   def handle(self, *args, **kwargs):
