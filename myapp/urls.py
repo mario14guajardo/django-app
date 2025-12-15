@@ -25,6 +25,7 @@ from .views import (
     search,
     feed,
     events,  
+    club_detail,
 )
 
 urlpatterns = [
