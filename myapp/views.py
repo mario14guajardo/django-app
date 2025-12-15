@@ -11,8 +11,12 @@ from .supabase_upload import upload_to_supabase
 
 def home(request):
     posts = Post.objects.all().order_by('-created_at')
+    announcements = []
+    events = []
     context = {
-        "posts":posts,
+        "posts": posts,
+        "announcements": announcements,
+        "events": events,
     }
     return render(request, 'myapp/home.html', context)
 
