@@ -1,15 +1,15 @@
 {% extends "myapp/base.html" %}
 {% block title %}Home{% endblock %}
+
 {% block content %}
 
-
 <div class="row">
+    <!-- Main Feed -->
     <div class="col-md-8">
         {% for post in posts %}
-        <div class="post-card mb-3 shadow-sm">
-
+        <div class="post-card mb-3 shadow-sm d-flex">
             <!-- Upvote Column -->
-            <div class="vote-box">
+            <div class="vote-box me-3 text-center">
                 <a href="{% url 'toggle_upvote' post.id %}">
                     <i class="bi bi-arrow-up-circle"></i>
                 </a>
@@ -25,9 +25,7 @@
                 <div class="text-muted small">
                     Posted by {{ post.author }} • {{ post.created_at|timesince }} ago
                 </div>
-
                 <p class="mt-2">{{ post.body|truncatechars:200 }}</p>
-
                 <a href="{% url 'post_detail' post.id %}" class="text-decoration-none fw-semibold">
                     {{ post.comments.count }} comments
                 </a>
@@ -36,29 +34,33 @@
         {% endfor %}
     </div>
 
-    <!-- Right Sidebar -->
+    <!-- Sidebar -->
     <div class="col-md-4">
-
-        <div class="sidebar-card">
-            <h5 class="fw-bold">Announcements</h5>
+        <!-- Announcements -->
+        <div class="sidebar-card mb-3 p-3 shadow-sm bg-light rounded">
+            <h5 class="fw-bold mb-2">Announcements</h5>
             {% for ann in announcements %}
-                <p>• {{ ann.text }}</p>
+                <p class="mb-1">• {{ ann.text }}</p>
             {% endfor %}
         </div>
 
-        <div class="sidebar-card">
-            <h5 class="fw-bold">Upcoming Events</h5>
+        <!-- Upcoming Events -->
+        <div class="sidebar-card mb-3 p-3 shadow-sm bg-light rounded">
+            <h5 class="fw-bold mb-2">Upcoming Events</h5>
             {% for event in events %}
-                <p>{{ event.title }} — {{ event.date }}</p>
+                <p class="mb-1">{{ event.title }} — {{ event.date }}</p>
             {% endfor %}
         </div>
 
-        <div class="sidebar-card">
-            <h5 class="fw-bold">Your Badges</h5>
-            <p>⭐ Helpful Student</p>
-            <p>🔥 Active Contributor</p>
+        <!-- Badges -->
+        <div class="sidebar-card mb-3 p-3 shadow-sm bg-light rounded">
+            <h5 class="fw-bold mb-2">Your Badges</h5>
+            <div class="d-flex gap-2 flex-wrap">
+                <span class="badge bg-warning text-dark">⭐ Helpful Student</span>
+                <span class="badge bg-danger text-white">🔥 Active Contributor</span>
+            </div>
         </div>
-
     </div>
 </div>
+
 {% endblock %}
