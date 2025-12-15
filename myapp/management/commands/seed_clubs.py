@@ -7,10 +7,10 @@ from faker import Faker
 fake = Faker()
 
 class Command(BaseCommand):
-    help = "Seed clubs with emojis, mock members, and sample posts (auto-create users if needed)"
+    help = "Seed clubs with emojis, random members, and posts."
 
     def handle(self, *args, **kwargs):
-        # Sample clubs
+        # ----------------- CLUBS -----------------
         clubs_data = [
             {"name": "Chess Club", "description": "Play and learn chess!", "emoji": "♟️"},
             {"name": "Book Club", "description": "Discuss your favorite books.", "emoji": "📚"},
@@ -19,11 +19,11 @@ class Command(BaseCommand):
             {"name": "Art Club", "description": "Express your creativity.", "emoji": "🎨"},
         ]
 
-        # Clear existing clubs and posts (optional)
+        # Optional: Clear existing clubs and posts
         Post.objects.all().delete()
         Club.objects.all().delete()
 
-        # Ensure at least 10 users exist
+        # ----------------- USERS -----------------
         existing_users = list(User.objects.all())
         required_users = 10
         if len(existing_users) < required_users:
@@ -34,17 +34,18 @@ class Command(BaseCommand):
                 existing_users.append(user)
                 self.stdout.write(self.style.SUCCESS(f"Created user: {username}"))
 
-        # Create clubs, assign members, and create posts
+        # ----------------- CREATE CLUBS -----------------
         for c in clubs_data:
             club, created = Club.objects.get_or_create(
                 name=c["name"],
                 defaults={
                     "description": c["description"],
                     "emoji": c["emoji"],
+                    "created_by": random.choice(existing_users)
                 }
             )
 
-            # Assign 3–7 random members
+            # Assign random members (3–7)
             members_sample = random.sample(existing_users, k=random.randint(3, min(7, len(existing_users))))
             club.members.set(members_sample)
             club.save()
@@ -52,17 +53,16 @@ class Command(BaseCommand):
                 f"Created club: {club.name} with {club.members.count()} members"
             ))
 
-            # Create 2–4 posts per club
-            for i in range(random.randint(2, 4)):
-                author = random.choice(members_sample)
+            # ----------------- CREATE POSTS -----------------
+            for i in range(random.randint(2, 5)):  # 2–5 posts per club
                 post = Post.objects.create(
                     title=f"{club.name} Post {i+1}",
-                    content=fake.paragraph(nb_sentences=3),
-                    author=author,
-                    club=club
+                    body=fake.paragraph(nb_sentences=5),  # use `body`, not `content`
+                    author=random.choice(members_sample),
+                    community=None,  # optional, since these are club posts
                 )
-                self.stdout.write(self.style.SUCCESS(
-                    f"Created post: '{post.title}' by {author.username} in {club.name}"
-                ))
+                # Optionally, associate posts with the club through ManyToMany if needed
+                # For now, just store club reference in the title/body if needed
+                self.stdout.write(self.style.SUCCESS(f"Created post: {post.title} for {club.name}"))
 
-        self.stdout.write(self.style.SUCCESS("✅ Club seeding with members and posts completed successfully!"))
+        self.stdout.write(self.style.SUCCESS("✅ Clubs, members, and posts seeded successfully!"))
