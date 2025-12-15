@@ -2,11 +2,6 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
-<p>DEBUG: {{ posts|length }} posts found.</p>
-{% for post in posts %}
-  <p>{{ post.title }} by {{ post.author.username }}</p>
-{% endfor %}
-
 
 <div class="row">
     <div class="col-md-8">
