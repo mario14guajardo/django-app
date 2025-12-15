@@ -21,11 +21,7 @@ from .forms import PostForm, CommentForm, ProfileForm, EventForm, RegisterForm
 
 def home(request):
     # ONLY public posts (not club, not community)
-    posts = Post.objects.filter(
-        club__isnull=True,
-        community__isnull=True
-    ).order_by('-created_at')
-
+    posts = Post.objects.filter(club__isnull=True).order_by('-created_at')
     announcements = Announcement.objects.all().order_by('-id')
     events = Event.objects.order_by('date')[:5]
 
