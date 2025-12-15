@@ -14,6 +14,7 @@ from .views import (
     contact,
     school_map,
     badges,
+    clubs,
     community,
     community_detail,
     create_post_in_community,
@@ -43,6 +44,7 @@ urlpatterns = [
 
     # Community
     path('community/', community, name='community'),
+    path('clubs/<str:club_name>/', club_detail, name='club_detail'),
     path('c/<str:name>/', community_detail, name='community_detail'),
     path('c/<str:name>/create/', create_post_in_community, name='create_post_in_community'),
 
