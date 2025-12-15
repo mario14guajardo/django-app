@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .models import Community, Post, Event, Badge, Profile, Comment, Announcement
+from .models import Community, Post, Event, Badge, Profile, Comment, Announcement, Club
 from .forms import PostForm, CommentForm, ProfileForm, EventForm, RegisterForm
 
 
