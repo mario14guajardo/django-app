@@ -13,6 +13,7 @@ from .views import (
     contact,
     school_map,
     badges,
+    events,
     community_detail,
     create_post_in_community,
     create_post,
