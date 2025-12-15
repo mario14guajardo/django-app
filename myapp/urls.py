@@ -14,7 +14,6 @@ from .views import (
     contact,
     school_map,
     badges,
-    clubs,
     community,
     community_detail,
     create_post_in_community,
