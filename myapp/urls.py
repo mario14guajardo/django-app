@@ -25,7 +25,7 @@ from .views import (
 )
 
 urlpatterns = [
-    path('', include('myapp.urls')),
+    #path('', include('myapp.urls')),
     path('', home, name='home'),
     path('contact/', contact, name='contact'),
     path('map/', school_map, name='school_map'),
