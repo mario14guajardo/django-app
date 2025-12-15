@@ -45,7 +45,11 @@ class Comment(models.Model):
 class Event(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
+    location = models.CharField(max_length=255)
     date = models.DateTimeField()
+    time = models.TimeField()
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to="event_images/", blank=True, null=True)
 
     def __str__(self):
