@@ -3,8 +3,6 @@
 
 {% block content %}
 <div class="col-md-8 mx-auto text-center">
-
-    <!-- Club Info Card -->
     <div class="card p-4 shadow-sm mb-4">
         <div style="font-size: 4rem;">{{ club.emoji }}</div>
         <h2 class="fw-bold mt-2">{{ club.name }}</h2>
@@ -24,7 +22,6 @@
         {% endif %}
     </div>
 
-    <!-- Members List -->
     <h4 class="fw-bold mt-4 mb-2">Members</h4>
     <ul class="list-group list-group-flush mb-4">
         {% for member in club.members.all %}
@@ -47,7 +44,9 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ post.title }}</h5>
                     <p class="card-text">{{ post.body|truncatechars:200 }}</p>
-                    <p class="text-muted mb-0">by {{ post.author.username }} • {{ post.created_at|date:"M d, Y H:i" }}</p>
+                    <p class="text-muted mb-0">
+                        By {{ post.author.username }} &middot; {{ post.created_at|date:"M d, Y H:i" }}
+                    </p>
                     <a href="{% url 'post_detail' post.id %}" class="stretched-link"></a>
                 </div>
             </div>
@@ -55,6 +54,5 @@
     {% else %}
         <p class="text-muted">No posts yet. Be the first to post!</p>
     {% endif %}
-
 </div>
 {% endblock %}
