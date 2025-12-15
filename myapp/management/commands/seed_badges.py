@@ -1,4 +1,4 @@
-# myapp/seeds/seed_badges.py
+# myapp/management/commands/seed_badges.py
 
 from myapp.models import Badge
 
@@ -34,24 +34,6 @@ def seed_badges():
             "image_url": "https://via.placeholder.com/150?text=Helper",
             "unlocked": False,
         },
-        {
-            "name": "Early Bird",
-            "description": "Login before 9 AM.",
-            "image_url": "https://via.placeholder.com/150?text=Early+Bird",
-            "unlocked": False,
-        },
-        {
-            "name": "Night Owl",
-            "description": "Login after 10 PM.",
-            "image_url": "https://via.placeholder.com/150?text=Night+Owl",
-            "unlocked": False,
-        },
-        {
-            "name": "Trailblazer",
-            "description": "Complete your first challenge.",
-            "image_url": "https://via.placeholder.com/150?text=Trailblazer",
-            "unlocked": False,
-        },
     ]
 
     for b in badges:
@@ -59,15 +41,17 @@ def seed_badges():
             name=b["name"],
             defaults={
                 "description": b["description"],
+                "image_url": b["image_url"],
                 "unlocked": b["unlocked"],
             },
         )
-        # Set or update image
-        badge.image = b["image_url"]
-        badge.save()
-        if created:
-            print(f"Created badge: {b['name']}")
-        else:
-            print(f"Badge already exists: {b['name']}")
+        if not created:
+            # Update existing badge in case fields changed
+            badge.description = b["description"]
+            badge.image_url = b["image_url"]
+            badge.unlocked = b["unlocked"]
+            badge.save()
+
+        print(f"{'Created' if created else 'Updated'} badge: {b['name']}")
 
     print("✅ Finished seeding badges.")
