@@ -88,6 +88,11 @@ def logout_view(request):
 
 
 # ---------------------- COMMUNITY ----------------------
+def community(request):
+    clubs = Club.objects.all()
+    return render(request, 'myapp/community.html', {
+        'clubs': clubs
+    })
 
 def community_detail(request, name):
     community = get_object_or_404(Community, name=name)
