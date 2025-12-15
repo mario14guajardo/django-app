@@ -15,6 +15,7 @@ class Command(BaseCommand):
             announcement, created = Announcement.objects.get_or_create(
                 text=text
             )
+
             if created:
                 self.stdout.write(self.style.SUCCESS(f"Created announcement: {text}"))
             else:
