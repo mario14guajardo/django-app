@@ -7,31 +7,41 @@
 
     <!-- MAIN FEED -->
     <div class="col-lg-8 col-md-12 mb-4">
+
+        <h4 class="fw-bold mb-3">Latest Posts</h4>
+
         {% for post in posts %}
-        <div class="post-card mb-3 shadow-sm p-3 bg-white rounded d-flex">
-            
-            <!-- Upvote Column -->
-            <div class="vote-box me-3 text-center">
-                <a href="{% url 'toggle_upvote' post.id %}" class="text-decoration-none">
-                    <i class="bi bi-arrow-up-circle"></i>
-                </a>
-                <div class="fw-semibold">{{ post.upvotes.count }}</div>
-            </div>
+        <div class="card mb-3 shadow-sm border-0">
+            <div class="card-body d-flex gap-3">
 
-            <!-- Post Content -->
-            <div>
-                <a href="{% url 'post_detail' post.id %}" class="fw-bold text-decoration-none text-dark">
-                    {{ post.title }}
-                </a>
-                <div class="text-muted small">
-                    Posted by {{ post.author }} • {{ post.created_at|timesince }} ago
+                <!-- Vote column -->
+                <div class="text-center text-muted" style="min-width: 40px;">
+                    <a href="{% url 'toggle_upvote' post.id %}" class="text-decoration-none">
+                        <i class="bi bi-arrow-up-circle fs-5"></i>
+                    </a>
+                    <div class="fw-semibold">{{ post.upvotes.count }}</div>
                 </div>
-                <p class="mt-2 mb-2">{{ post.body|truncatechars:200 }}</p>
-                <a href="{% url 'post_detail' post.id %}" class="text-decoration-none fw-semibold">
-                    {{ post.comments.count }} comments
-                </a>
-            </div>
 
+                <!-- Post content -->
+                <div>
+                    <a href="{% url 'post_detail' post.id %}"
+                       class="fw-bold fs-5 text-decoration-none text-dark">
+                        {{ post.title }}
+                    </a>
+
+                    <div class="text-muted small mb-2">
+                        Posted by {{ post.author }} • {{ post.created_at|timesince }} ago
+                    </div>
+
+                    <p class="mb-2">{{ post.body|truncatechars:200 }}</p>
+
+                    <a href="{% url 'post_detail' post.id %}"
+                       class="fw-semibold text-decoration-none">
+                        {{ post.comments.count }} comments
+                    </a>
+                </div>
+
+            </div>
         </div>
         {% empty %}
             <p class="text-muted">No posts yet.</p>
@@ -43,7 +53,7 @@
 
         <!-- Announcements -->
         <div class="mb-4 p-3 shadow-sm bg-light rounded">
-            <h5 class="fw-bold mb-3">Announcements</h5>
+            <h5 class="fw-bold mb-2">Announcements</h5>
             {% for ann in announcements %}
                 <p class="mb-1">• {{ ann.text }}</p>
             {% empty %}
@@ -51,9 +61,9 @@
             {% endfor %}
         </div>
 
-        <!-- Upcoming Events -->
+        <!-- Events -->
         <div class="mb-4 p-3 shadow-sm bg-light rounded">
-            <h5 class="fw-bold mb-3">Upcoming Events</h5>
+            <h5 class="fw-bold mb-2">Upcoming Events</h5>
             {% for event in events %}
                 <p class="mb-1">{{ event.title }} — {{ event.date|date:"M d" }}</p>
             {% empty %}
@@ -64,13 +74,14 @@
         <!-- Badges -->
         <div class="p-3 shadow-sm bg-light rounded">
             <h5 class="fw-bold mb-3">Your Badges</h5>
+
             <div class="d-flex flex-column gap-2">
-                <span class="badge bg-warning text-dark text-start px-3 py-2">
+                <div class="badge-pill bg-warning text-dark">
                     ⭐ Helpful Student
-                </span>
-                <span class="badge bg-danger text-white text-start px-3 py-2">
+                </div>
+                <div class="badge-pill bg-danger text-white">
                     🔥 Active Contributor
-                </span>
+                </div>
             </div>
         </div>
 
