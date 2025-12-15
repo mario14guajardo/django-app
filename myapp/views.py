@@ -188,6 +188,11 @@ def reset_avatar(request):
     return redirect("edit_profile")
 
 # ---------------------- EVENTS ----------------------
+def events(request):
+    events = Event.objects.order_by('date', 'time')
+    return render(request, 'myapp/events.html', {
+        'events': events
+    })
 
 def submit_event(request):
     if request.method == 'POST':
