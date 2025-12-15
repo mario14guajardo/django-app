@@ -12,7 +12,7 @@ from .forms import PostForm, CommentForm, ProfileForm, EventForm, RegisterForm
 
 def home(request):
     posts = Post.objects.all().order_by('-created_at')
-    announcements = Announcement.objects.all().order_by('-created_at')
+    announcements = Announcement.objects.all().order_by('-id')
     return render(request, 'myapp/home.html', {
         'posts': posts,
         'announcements': announcements,
