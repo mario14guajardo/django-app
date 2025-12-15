@@ -44,8 +44,8 @@ class Comment(models.Model):
 # ---------------------- EVENTS ----------------------
 class Event(models.Model):
     title = models.CharField(max_length=200)
-    description = models.TextField()
-    location = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    location = models.CharField(max_length=255, blank=True)
     date = models.DateTimeField()
     time = models.TimeField()
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
