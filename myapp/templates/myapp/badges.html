@@ -1,49 +1,53 @@
 {% extends "myapp/base.html" %}
 
 {% block content %}
-<div class="container mt-5">
 
-    <!-- Centered column like Create Post page -->
-    <div class="col-md-8 mx-auto text-center">
+<!-- Centered column -->
+<div class="col-md-8 mx-auto text-center">
 
-        <!-- Title (larger, spaced, centered) -->
-        <h1 class="mb-4 fw-bold" style="font-size: 3.75rem;">
-            Badges
-        </h1>
+    <!-- Title -->
+    <h1 class="mb-3 fw-bold" style="font-size: 3.75rem;">
+        Badges
+    </h1>
 
-        <!-- Pronounced divider with shadow -->
-        <hr class="mx-auto mb-5" style="
-            width: 60%;
-            height: 3px;
-            background-color: #444;
-            border: none;
-            box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
-        ">
+    <!-- Divider -->
+    <hr class="mx-auto mb-4" style="
+        width: 60%;
+        height: 3px;
+        background-color: #444;
+        border: none;
+        box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+    ">
 
-        {% if badges %}
-            <div class="row mt-4 justify-content-center">
-                {% for badge in badges %}
-                    <div class="col-md-4 mb-4">
-                        <div class="card text-center h-100 shadow-sm bg-light rounded">
-                            {% if badge.image %}
-                                <img src="{{ badge.image.url }}" class="card-img-top p-3" style="height:150px; object-fit:contain;" alt="{{ badge.name }}">
-                            {% else %}
-                                <img src="https://via.placeholder.com/150" class="card-img-top p-3" alt="No image">
-                            {% endif %}
-                            <div class="card-body">
-                                <h5 class="card-title fw-semibold">{{ badge.name }}</h5>
-                                <p class="card-text text-muted">{{ badge.description }}</p>
-                            </div>
+    {% if badges %}
+        <div class="row mt-4 justify-content-center">
+            {% for badge in badges %}
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center h-100 shadow-sm bg-light rounded">
+                        {% if badge.image %}
+                            <img src="{{ badge.image.url }}"
+                                 class="card-img-top p-3"
+                                 style="height:150px; object-fit:contain;"
+                                 alt="{{ badge.name }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/150"
+                                 class="card-img-top p-3"
+                                 alt="No image">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title fw-semibold">{{ badge.name }}</h5>
+                            <p class="card-text text-muted">{{ badge.description }}</p>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <!-- Centered "no badges" message -->
-            <p class="mt-4 text-muted" style="font-size: 1.2rem;">No badges available yet.</p>
-        {% endif %}
-
-    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="mt-3 text-muted" style="font-size: 1.2rem;">
+            No badges available yet.
+        </p>
+    {% endif %}
 
 </div>
+
 {% endblock %}
