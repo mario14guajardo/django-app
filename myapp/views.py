@@ -12,7 +12,7 @@ from .supabase_upload import upload_to_supabase
 def home(request):
     posts = Post.objects.all().order_by('-created_at')
     announcements = Announcement.objects.all().order_by('-created_at')
-    events = Event.objects.order_by('date', 'time')[:5]
+    events = Event.objects.order_by('date')[:5]
     context = {
         "posts": posts,
         "announcements": announcements,
