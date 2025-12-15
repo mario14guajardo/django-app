@@ -25,26 +25,29 @@
         <div class="row mt-4 justify-content-center">
             {% for club in clubs %}
                 <div class="col-md-4 mb-4">
-                    <div class="card text-center h-100 shadow-sm bg-light rounded club-card">
+                    <!-- Wrap card in a link -->
+                    <a href="{% url 'club_detail' club.name %}" class="text-decoration-none text-dark">
+                        <div class="card text-center h-100 shadow-sm bg-light rounded club-card">
 
-                        <!-- Club Emoji -->
-                        <div class="club-emoji display-1 my-3">
-                            {{ club.emoji }}
-                        </div>
-
-                        <div class="card-body">
-                            <h5 class="card-title fw-semibold">{{ club.name }}</h5>
-                            <p class="card-text text-muted">{{ club.description }}</p>
-                        </div>
-
-                        <!-- Optional: Members count -->
-                        {% if club.members_count %}
-                            <div class="club-meta text-secondary mb-2">
-                                👥 {{ club.members_count }} members
+                            <!-- Club Emoji -->
+                            <div class="club-emoji display-1 my-3">
+                                {{ club.emoji }}
                             </div>
-                        {% endif %}
 
-                    </div>
+                            <div class="card-body">
+                                <h5 class="card-title fw-semibold">{{ club.name }}</h5>
+                                <p class="card-text text-muted">{{ club.description }}</p>
+                            </div>
+
+                            <!-- Optional: Members count -->
+                            {% if club.members_count %}
+                                <div class="club-meta text-secondary mb-2">
+                                    👥 {{ club.members_count }} members
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </a>
                 </div>
             {% endfor %}
         </div>
@@ -78,6 +81,11 @@
 .club-meta {
     font-weight: 600;
     font-size: 0.9rem;
+}
+
+/* Ensure link doesn’t inherit underline */
+a.text-decoration-none:hover {
+    text-decoration: none;
 }
 </style>
 
