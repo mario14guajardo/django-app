@@ -1,55 +1,55 @@
 {% extends "myapp/base.html" %}
 
 {% block content %}
-<div class="col-md-10 mx-auto text-center">
+<div class="row justify-content-center">
+    <div class="col-md-10 text-center">
 
-    <!-- Page Title -->
-    <h1 class="mb-4 fw-bold" style="font-size: 3rem; letter-spacing: 1px;">
-        Community Clubs
-    </h1>
+        <!-- Page Title -->
+        <h1 class="mb-4 fw-bold" style="font-size: 3rem; letter-spacing: 1px;">
+            Community Clubs
+        </h1>
 
-    <!-- Divider -->
-    <hr class="mx-auto mb-4" style="
-        width:60%;
-        height:3px;
-        background-color:#444;
-        border:none;
-        box-shadow:0 2px 6px rgba(0,0,0,0.2);
-    ">
+        <hr class="mx-auto mb-4" style="
+            width:60%;
+            height:3px;
+            background-color:#444;
+            border:none;
+            box-shadow:0 2px 6px rgba(0,0,0,0.2);
+        ">
 
-    {% if clubs %}
-        <div class="row justify-content-center mt-4">
+        {% if clubs %}
+            <div class="row justify-content-center mt-4">
 
-            {% for club in clubs %}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 shadow-sm rounded club-card">
+                {% for club in clubs %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow-sm rounded club-card">
 
-                        <!-- Emoji as club image -->
-                        <div class="club-emoji mb-3">
-                            {{ club.emoji|default:"🏛️" }}
-                        </div>
+                            <!-- Emoji as club image -->
+                            <div class="club-emoji mb-3">
+                                {{ club.emoji|default:"🏛️" }}
+                            </div>
 
-                        <div class="card-body">
-                            <h5 class="card-title fw-semibold">{{ club.name }}</h5>
-                            <p class="card-text text-muted">{{ club.description }}</p>
-                        </div>
+                            <div class="card-body">
+                                <h5 class="card-title fw-semibold">{{ club.name }}</h5>
+                                <p class="card-text text-muted">{{ club.description }}</p>
+                            </div>
 
-                        <!-- Member count -->
-                        <div class="card-footer text-muted">
-                            Members: {{ club.member_count }}
+                            <!-- Member count -->
+                            <div class="card-footer text-muted">
+                                Members: {{ club.member_count }}
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
 
-        </div>
-    {% else %}
-        <p class="mt-4 text-muted">No clubs available yet.</p>
-    {% endif %}
+            </div>
+        {% else %}
+            <p class="mt-4 text-muted">No clubs available yet.</p>
+        {% endif %}
 
+    </div>
 </div>
 
-<!-- Custom CSS -->
 <style>
 .club-card {
     transition: transform 0.2s, box-shadow 0.2s;
@@ -66,10 +66,5 @@
 .club-emoji:hover {
     transform: scale(1.1);
 }
-
-.card-body {
-    padding-top: 0;
-}
 </style>
-
 {% endblock %}
