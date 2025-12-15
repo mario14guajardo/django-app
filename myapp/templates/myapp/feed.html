@@ -15,9 +15,14 @@
     max-width: 900px;
     margin: 0 auto 3rem auto;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     background-color: #ffffff;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.post-form-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
 
 /* --- Posts Wrapper --- */
@@ -32,24 +37,46 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     padding: 1.8rem;
     background-color: #fff;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 }
 
 /* --- Form Styling --- */
 input, textarea {
     font-size: 1.1rem;
     font-weight: 500;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    padding: 0.6rem 0.8rem;
+    width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
 }
 label {
     font-weight: 600;
+    margin-bottom: 0.3rem;
+    display: block;
 }
 
 /* --- Buttons --- */
 .btn-warning {
     background-color: #f59e0b;
     border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    padding: 0.6rem 1.5rem;
+    transition: background-color 0.2s, transform 0.2s;
 }
 .btn-warning:hover {
     background-color: #d97706;
+    transform: scale(1.05);
 }
 
 /* --- Text Styling --- */
@@ -85,7 +112,20 @@ label {
 
         <form method="POST" action="{% url 'create_post' %}">
             {% csrf_token %}
-            {{ form.as_p }}
+            
+            <!-- Use form fields individually for better styling -->
+            {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger mt-1" style="font-size:0.9rem;">
+                            {{ field.errors|striptags }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
             <div class="text-center mt-3">
                 <button type="submit" class="btn btn-warning px-4">
                     Post
