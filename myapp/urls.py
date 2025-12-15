@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from django.conf import settings
 from django.views.generic.base import RedirectView
 from django.conf.urls.static import static
@@ -25,7 +25,6 @@ from .views import (
 )
 
 urlpatterns = [
-    #path('', include('myapp.urls')),
     path('', home, name='home'),
     path('contact/', contact, name='contact'),
     path('map/', school_map, name='school_map'),
