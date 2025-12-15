@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "myapp.apps.MyappConfig",
+    "posts.apps.PostsConfig",
 ]
 
 LOGIN_URL = "/login/"
